@@ -39,4 +39,3 @@ fn main() -> Result<(), systray::Error> {
     app.wait_for_message()?;
     Ok(())
 }
-
