@@ -13,7 +13,7 @@ fn make_request() -> Result<HashMap<String, serde_json::Value>, Box<dyn std::err
         .json::<HashMap<String, serde_json::Value>>()
         .unwrap();
     println!("{:#?}", resp["main"]["temp"]);
-    return Ok(resp);
+    Ok(resp)
 }
 
 pub fn get_temp() -> String {
@@ -22,6 +22,5 @@ pub fn get_temp() -> String {
     let cop_temp_str = temp_num.to_string();
     let test_float: f64 = cop_temp_str.parse().unwrap();
     let test_round = test_float.round() as i64;
-    let round_str = test_round.to_string();
-    return round_str;
+    test_round.to_string()
 }
