@@ -9,7 +9,7 @@ pub fn cria_imagem(value: &str) {
     let image = RgbImage::new(256, 256);
 
     //aqui se salva a imagem no path definido
-    let _ = escreve_texto(image, value).save(path).unwrap();
+    escreve_texto(image, value).save(path).unwrap();
 }
 
 fn escreve_texto(mut img: RgbImage, temp: &str) -> RgbImage {
@@ -32,5 +32,5 @@ fn escreve_texto(mut img: RgbImage, temp: &str) -> RgbImage {
         &font,
         &format!("{}°", temp).to_string(),
     );
-    return img;
+    img
 }
