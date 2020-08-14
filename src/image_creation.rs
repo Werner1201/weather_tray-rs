@@ -32,5 +32,5 @@ fn escreve_texto(mut img: RgbImage, temp: &str) -> RgbImage {
         &font,
         &format!("{}°", temp).to_string(),
     );
-    return img;
+    img
 }
