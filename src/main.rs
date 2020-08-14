@@ -11,9 +11,9 @@ fn main() -> Result<(), systray::Error> {
         Ok(w) => app = w,
         Err(_) => panic!("Can't create window!"),
     }
-    // w.set_icon_from_file(&"C:\\Users\\qdot\\code\\git-projects\\systray-rs\\resources\\rust.ico".to_string());
-    // w.set_tooltip(&"Whatever".to_string());
-    //let cam = "D\\pactw\\RustProjects\\teste_sys_tray\\temp.ico";
+    
+    // We initialize an empty icon, so the program will not exit if request fails
+    image_creation::cria_imagem("00");
 
     if let Ok(temp) = request_maker::get_temp() {
         image_creation::cria_imagem(&temp);
