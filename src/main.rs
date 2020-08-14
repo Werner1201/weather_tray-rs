@@ -15,21 +15,17 @@ fn main() -> Result<(), systray::Error> {
     // w.set_tooltip(&"Whatever".to_string());
     //let cam = "D\\pactw\\RustProjects\\teste_sys_tray\\temp.ico";
 
-    let temp = match request_maker::get_temp() {
-            Ok(t) => t,
-            Err(_) => return Err(systray::Error::UnknownError)
-        };
-    image_creation::cria_imagem(&temp);
+    if let Ok(temp) = request_maker::get_temp() {
+        image_creation::cria_imagem(&temp);
+    }
 
     //Mudar para apenas o nome do arquivo no final
     app.set_icon_from_file(&"temp.ico".to_string())?;
 
     app.add_menu_item("Refresh", |window| {
-        let temp = match request_maker::get_temp() {
-            Ok(t) => t,
-            Err(_) => return Err(systray::Error::UnknownError)
-        };
-        image_creation::cria_imagem(&temp);
+        if let Ok(temp) = request_maker::get_temp() {
+            image_creation::cria_imagem(&temp);
+        }
         window.set_icon_from_file(&"temp.ico".to_string())?;
         Ok::<_, systray::Error>(())
     })?;
