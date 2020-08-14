@@ -6,7 +6,7 @@ use std::path::Path;
 pub fn cria_imagem(value: &str) {
     //aqui ele atribui o caminho ao local onde foram enviados os argumentos
     let path = Path::new("temp.ico");
-    let mut image = RgbImage::new(256, 256);
+    let image = RgbImage::new(256, 256);
 
     //aqui se salva a imagem no path definido
     let _ = escreve_texto(image, value).save(path).unwrap();
