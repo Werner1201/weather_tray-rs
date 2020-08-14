@@ -1,5 +1,5 @@
 use serde_json;
-use std::collections::HashMap;
+use std::{collections::HashMap, error::Error};
 
 //Lembrar de dar unwrap no retorno do outro lado
 fn make_request() -> Result<HashMap<String, serde_json::Value>, Box<dyn std::error::Error>> {
@@ -15,11 +15,11 @@ fn make_request() -> Result<HashMap<String, serde_json::Value>, Box<dyn std::err
     Ok(resp)
 }
 
-pub fn get_temp() -> String {
-    let mapa = make_request().unwrap();
+pub fn get_temp() -> Result<String, Box<dyn Error>> {
+    let mapa = make_request()?;
     let temp_num = &mapa["main"]["temp"];
     let cop_temp_str = temp_num.to_string();
-    let test_float: f64 = cop_temp_str.parse().unwrap();
+    let test_float: f64 = cop_temp_str.parse()?;
     let test_round = test_float.round() as i64;
-    test_round.to_string()
+    Ok(test_round.to_string())
 }
