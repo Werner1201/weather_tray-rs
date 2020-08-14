@@ -10,8 +10,7 @@ fn make_request() -> Result<HashMap<String, serde_json::Value>, Box<dyn std::err
         location, app_id
     );
     let resp = reqwest::blocking::get(&url)?
-        .json::<HashMap<String, serde_json::Value>>()
-        .unwrap();
+        .json::<HashMap<String, serde_json::Value>>()?;
     println!("{:#?}", resp["main"]["temp"]);
     Ok(resp)
 }
