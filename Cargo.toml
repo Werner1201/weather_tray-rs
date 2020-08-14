@@ -11,3 +11,6 @@ image = "0.23.8"
 imageproc = "0.21.0"
 rusttype = "0.9.2"
 systray = "0.4.0"
+reqwest = { version = "0.10", features = ["blocking", "json"] }
+tokio = { version = "0.2", features = ["full", "time"] }
+serde_json = "1.0.33"
