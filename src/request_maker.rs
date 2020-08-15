@@ -1,10 +1,11 @@
 use serde_json;
-use std::{collections::HashMap, error::Error};
+use std::{collections::HashMap, error::Error, env};
 
 //Lembrar de dar unwrap no retorno do outro lado
 fn make_request() -> Result<HashMap<String, serde_json::Value>, Box<dyn std::error::Error>> {
-    let location = "Duque+de+Caxias";
-    let app_id = "1ed014973f3aff63e2ec5bbb95751ef4";
+    let location = "Isbergues, FR";
+    // $env:API_KEY="<paste key>"; cargo run
+    let app_id = env::var("API_KEY")?;
     let url = format!(
         "http://api.openweathermap.org/data/2.5/weather?q={}&APPID={}&units=metric",
         location, app_id
