@@ -1,4 +1,3 @@
-use serde_json;
 use std::{collections::HashMap, error::Error, env};
 
 //Lembrar de dar unwrap no retorno do outro lado
