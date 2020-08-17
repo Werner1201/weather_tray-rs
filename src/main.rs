@@ -1,8 +1,11 @@
 #![windows_subsystem = "windows"]
+mod create_gui;
 mod image_creation;
 mod request_maker;
-
+//1ed014973f3aff63e2ec5bbb95751ef4
 fn main() -> Result<(), systray::Error> {
+    create_gui::construct_gui();
+
     let mut app = match systray::Application::new() {
         Ok(w) => w,
         Err(_) => return Err(systray::Error::UnknownError),
