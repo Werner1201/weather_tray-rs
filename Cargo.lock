@@ -1661,9 +1661,8 @@ dependencies = [
 
 [[package]]
 name = "systray"
-version = "0.4.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e2d32363b257d5b4d444bb76a7d063663569544fd598cf4fd2f13bb5b0f2d8b5"
+version = "0.4.1"
+source = "git+https://github.com/nicolasbauw/systray-rs?tag=0.4.1#848224674e00f6a0426ba54313e8d565aef5a5ce"
 dependencies = [
  "glib",
  "gtk",
@@ -1675,7 +1674,7 @@ dependencies = [
 
 [[package]]
 name = "temp_tray-rs"
-version = "0.1.0"
+version = "0.2.0"
 dependencies = [
  "image",
  "imageproc",
