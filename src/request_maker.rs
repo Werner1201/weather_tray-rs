@@ -3,8 +3,8 @@ use std::{collections::HashMap, error::Error, env};
 // Fetching data from Open weather API
 fn make_request() -> Result<HashMap<String, serde_json::Value>, Box<dyn std::error::Error>> {
     let location = "Isbergues, FR";
-    // $env:API_KEY="<paste key>"; cargo run
-    let app_id = env::var("API_KEY")?;
+    // $env:OPENWEATHER_API_KEY="<paste key>"; cargo run
+    let app_id = env::var("OPENWEATHER_API_KEY")?;
     let url = format!(
         "http://api.openweathermap.org/data/2.5/weather?q={}&APPID={}&units=metric",
         location, app_id
