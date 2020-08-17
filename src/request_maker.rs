@@ -1,6 +1,6 @@
 use std::{collections::HashMap, error::Error, env};
 
-//Lembrar de dar unwrap no retorno do outro lado
+// Fetching data from Open weather API
 fn make_request() -> Result<HashMap<String, serde_json::Value>, Box<dyn std::error::Error>> {
     let location = "Isbergues, FR";
     // $env:API_KEY="<paste key>"; cargo run
@@ -15,6 +15,7 @@ fn make_request() -> Result<HashMap<String, serde_json::Value>, Box<dyn std::err
     Ok(resp)
 }
 
+// Transforming API result to i64 temperature (° Celsius)
 pub fn get_temp() -> Result<String, Box<dyn Error>> {
     let cop_temp_str = &make_request()?["main"]["temp"].as_f64().ok_or("Cannot convert temperature")?;
     Ok((*cop_temp_str as i64).to_string())
