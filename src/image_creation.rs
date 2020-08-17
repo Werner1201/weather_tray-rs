@@ -2,16 +2,8 @@ use image::{Rgba, DynamicImage, ImageOutputFormat};
 use imageproc::drawing::draw_text_mut;
 use rusttype::{Font, Scale};
 
-pub fn cria_imagem(value: &str) {
-    //aqui ele atribui o caminho ao local onde foram enviados os argumentos
-    //let path = Path::new("temp.ico");
-    let image = DynamicImage::new_rgb8(256, 256);
-
-    //aqui se salva a imagem no path definido
-    escreve_texto(image, value);
-}
-
-fn escreve_texto(mut img: DynamicImage, temp: &str) -> Vec<u8> {
+pub fn create_icon(temp: &str) -> Vec<u8> {
+    let mut img = DynamicImage::new_rgb8(256, 256);
     let font = Vec::from(include_bytes!("docs/DejaVuSans.ttf") as &[u8]);
     let font = Font::try_from_vec(font).unwrap();
 
@@ -31,7 +23,7 @@ fn escreve_texto(mut img: DynamicImage, temp: &str) -> Vec<u8> {
         &font,
         &format!("{}°", temp).to_string(),
     );
-    let mut icondata = Vec::new();
-    img.write_to(& mut icondata, ImageOutputFormat::Ico).unwrap();
-    icondata
+    let mut icon = Vec::new();
+    img.write_to(&mut icon, ImageOutputFormat::Ico).expect("Cannot generate icon");
+    icon
 }
