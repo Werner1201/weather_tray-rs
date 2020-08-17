@@ -17,6 +17,6 @@ fn make_request() -> Result<HashMap<String, serde_json::Value>, Box<dyn std::err
 
 // Transforming API result to i64 temperature (° Celsius)
 pub fn get_temp() -> Result<String, Box<dyn Error>> {
-    let cop_temp_str = &make_request()?["main"]["temp"].as_f64().ok_or("Cannot convert temperature")?;
-    Ok((*cop_temp_str as i64).to_string())
+    let temp = &make_request()?["main"]["temp"].as_f64().ok_or("Cannot convert temperature")?;
+    Ok((*temp as i64).to_string())
 }
