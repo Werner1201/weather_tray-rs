@@ -6,7 +6,7 @@ use std::error::Error;
 pub fn create_icon() -> Result<Vec<u8>, Box<dyn Error>> {
     let mut img = DynamicImage::new_rgb8(256, 256);
     let temp = crate::request_maker::get_temp()?;
-    let font = Vec::from(include_bytes!("docs/DejaVuSans.ttf") as &[u8]);
+    let font = Vec::from(include_bytes!("../assets/DejaVuSans.ttf") as &[u8]);
     let font = Font::try_from_vec(font).unwrap();
 
     //Aqui esta as definicioes perfeitinhas para criar uma imagem certinha como a do meu antigo projeto python.
