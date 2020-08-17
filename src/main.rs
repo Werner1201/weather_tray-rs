@@ -12,10 +12,7 @@ fn main() -> Result<(), systray::Error> {
         Err(_) => panic!("Can't create window!"),
     }
 
-    let temp = request_maker::get_temp().unwrap_or_default();
-    let icon = image_creation::create_icon(&temp);
-
-    //Mudar para apenas o nome do arquivo no final
+    let icon = image_creation::create_icon().unwrap();
     app.set_icon_from_buffer(&icon[0..icon.len()], 256, 256).expect("Cannot set icon");
 
     /*app.add_menu_item("Refresh", |window| {
