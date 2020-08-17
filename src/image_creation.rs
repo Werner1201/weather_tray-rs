@@ -7,8 +7,8 @@ use std::error::Error;
 pub fn create_icon() -> Result<Vec<u8>, Box<dyn Error>> {
     let mut img = DynamicImage::new_rgb8(256, 256);
     let temp = crate::request_maker::get_temp()?;
-    let font = Vec::from(include_bytes!("../assets/DejaVuSans.ttf") as &[u8]);
-    let font = match Font::try_from_vec(font) {
+    let font = include_bytes!("../assets/DejaVuSans.ttf");
+    let font = match Font::try_from_bytes(font) {
         Some(f) =>f,
         None => return Err(Box::new(systray::Error::UnknownError))
     };
