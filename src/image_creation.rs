@@ -1,4 +1,4 @@
-use image::{Rgba, DynamicImage, ImageOutputFormat};
+use image::{DynamicImage, ImageOutputFormat, Rgba};
 use imageproc::drawing::draw_text_mut;
 use rusttype::{Font, Scale};
 use std::error::Error;
@@ -9,8 +9,8 @@ pub fn create_icon() -> Result<Vec<u8>, Box<dyn Error>> {
     let temp = crate::request_maker::get_temp()?;
     let font = include_bytes!("../assets/DejaVuSans.ttf");
     let font = match Font::try_from_bytes(font) {
-        Some(f) =>f,
-        None => return Err(Box::new(systray::Error::UnknownError))
+        Some(f) => f,
+        None => return Err(Box::new(systray::Error::UnknownError)),
     };
 
     // Text scale
