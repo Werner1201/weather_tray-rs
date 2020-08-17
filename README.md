@@ -14,6 +14,6 @@ And now you can open the project on the code editor, IDE of your choice and star
 
 ## Future plans and Next up. 
 
-* I plan on making this program more concise, contained on it's own executable, none of this creating a file to load back on the  system tray crate. 
-* Another thing I want to do is to make easy to change the city and the API key so everybody has it's own key.
+* I plan on making this program more concise, contained on it's own executable, none of this creating a file to load back on the  system tray crate. (DONE) 
+* Another thing I want to do is to make easy to change the city and the API key so everybody has it's own key. (done for the API key, now read from ENV)
 * And Last Figure out how to make this whole program assynchronous or a way to create a delay to make another request to the API.
