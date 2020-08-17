@@ -14,6 +14,7 @@ fn main() -> Result<(), systray::Error> {
         Ok(i) => i,
         Err(_) => error_icon.to_vec()
     };
+    app.set_tooltip("Temperature (Celcius)")?;
     app.set_icon_from_buffer(&icon[0..icon.len()], 256, 256)?;
 
     // Refresh menu : we fetch api data and update systray icon (TODO : automatic update ?)
