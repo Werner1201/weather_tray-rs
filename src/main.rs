@@ -11,12 +11,19 @@ fn main() -> Result<(), systray::Error> {
     }
 
     // At app init : we create systray icon (TODO : error handling)
-    let icon = image_creation::create_icon().unwrap();
+    let error_icon = include_bytes!("../assets/error-5-16.ico");
+    let icon = match image_creation::create_icon() {
+        Ok(i) => i,
+        Err(_) => error_icon.to_vec()
+    };
     app.set_icon_from_buffer(&icon[0..icon.len()], 256, 256).expect("Cannot set icon");
 
     // Refresh : we recreate systray icon (TODO : automatic update ?)
-    app.add_menu_item("Refresh", |window| {
-        let icon = image_creation::create_icon().unwrap();
+        app.add_menu_item("Refresh", move |window| {
+        let icon = match image_creation::create_icon() {
+            Ok(i) => i,
+            Err(_) => error_icon.to_vec()
+        };
         window.set_icon_from_buffer(&icon[0..icon.len()], 256, 256).expect("Cannot set icon");
         Ok::<_, systray::Error>(())
     })?;
