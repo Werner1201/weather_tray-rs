@@ -15,7 +15,7 @@ pub fn create_icon() -> Result<Vec<u8>, Box<dyn Error>> {
     //Aqui esta as definicioes perfeitinhas para criar uma imagem certinha como a do meu antigo projeto python.
     let height = 300.0;
     let scale = Scale {
-        x: height * 0.75,
+        x: height * 0.70,
         y: height * 1.0,
     };
     //Aqui se desenha o texto na imagem com essa funcao
