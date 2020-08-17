@@ -12,13 +12,12 @@ pub fn create_icon() -> Result<Vec<u8>, Box<dyn Error>> {
         None => return Err(Box::new(systray::Error::UnknownError))
     };
 
-    //Aqui esta as definicioes perfeitinhas para criar uma imagem certinha como a do meu antigo projeto python.
-    let height = 300.0;
+    // Text scale
     let scale = Scale {
-        x: height * 0.70,
-        y: height * 1.0,
+        x: 300.0 * 0.70,
+        y: 300.0 * 1.0,
     };
-    //Aqui se desenha o texto na imagem com essa funcao
+    // Writing text
     draw_text_mut(
         &mut img,
         Rgba([255u8, 255u8, 255u8, 255u8]),
