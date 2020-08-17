@@ -4,11 +4,10 @@ mod request_maker;
 
 #[cfg(target_os = "windows")]
 fn main() -> Result<(), systray::Error> {
-    let mut app;
-    match systray::Application::new() {
-        Ok(w) => app = w,
-        Err(_) => panic!("Can't create window!"),
-    }
+    let mut app = match systray::Application::new() {
+        Ok(w) => w,
+        Err(_) => return Err(systray::Error::UnknownError),
+    };
 
     // At app init : we create systray icon (TODO : error handling)
     let error_icon = include_bytes!("../assets/error-5-16.ico");
@@ -16,7 +15,7 @@ fn main() -> Result<(), systray::Error> {
         Ok(i) => i,
         Err(_) => error_icon.to_vec()
     };
-    app.set_icon_from_buffer(&icon[0..icon.len()], 256, 256).expect("Cannot set icon");
+    app.set_icon_from_buffer(&icon[0..icon.len()], 256, 256)?;
 
     // Refresh : we recreate systray icon (TODO : automatic update ?)
         app.add_menu_item("Refresh", move |window| {
@@ -24,7 +23,7 @@ fn main() -> Result<(), systray::Error> {
             Ok(i) => i,
             Err(_) => error_icon.to_vec()
         };
-        window.set_icon_from_buffer(&icon[0..icon.len()], 256, 256).expect("Cannot set icon");
+        window.set_icon_from_buffer(&icon[0..icon.len()], 256, 256)?;
         Ok::<_, systray::Error>(())
     })?;
 

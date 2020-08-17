@@ -26,6 +26,6 @@ pub fn create_icon() -> Result<Vec<u8>, Box<dyn Error>> {
         &format!("{}°", temp),
     );
     let mut icon = Vec::new();
-    img.write_to(&mut icon, ImageOutputFormat::Ico).expect("Cannot generate icon");
+    img.write_to(&mut icon, ImageOutputFormat::Ico)?;
     Ok(icon)
 }
