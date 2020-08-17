@@ -1,36 +1,34 @@
-use image::{Rgb, RgbImage};
+use image::{Rgba, DynamicImage, ImageOutputFormat};
 use imageproc::drawing::draw_text_mut;
 use rusttype::{Font, Scale};
-use std::path::Path;
+use std::error::Error;
 
-pub fn cria_imagem(value: &str) {
-    //aqui ele atribui o caminho ao local onde foram enviados os argumentos
-    let path = Path::new("temp.ico");
-    let image = RgbImage::new(256, 256);
-
-    //aqui se salva a imagem no path definido
-    escreve_texto(image, value).save(path).unwrap();
-}
-
-fn escreve_texto(mut img: RgbImage, temp: &str) -> RgbImage {
-    let font = Vec::from(include_bytes!("docs/DejaVuSans.ttf") as &[u8]);
-    let font = Font::try_from_vec(font).unwrap();
-
-    //Aqui esta as definicioes perfeitinhas para criar uma imagem certinha como a do meu antigo projeto python.
-    let height = 300.0;
-    let scale = Scale {
-        x: height * 0.57,
-        y: height * 1.0,
+// Fetching data from API, returning the ready-to-display icon (or an error)
+pub fn create_icon() -> Result<Vec<u8>, Box<dyn Error>> {
+    let mut img = DynamicImage::new_rgb8(256, 256);
+    let temp = crate::request_maker::get_temp()?;
+    let font = include_bytes!("../assets/DejaVuSans.ttf");
+    let font = match Font::try_from_bytes(font) {
+        Some(f) =>f,
+        None => return Err(Box::new(systray::Error::UnknownError))
     };
-    //Aqui se desenha o texto na imagem com essa funcao
+
+    // Text scale
+    let scale = Scale {
+        x: 300.0 * 0.70,
+        y: 300.0 * 1.0,
+    };
+    // Writing text
     draw_text_mut(
         &mut img,
-        Rgb([255u8, 255u8, 255u8]),
+        Rgba([255u8, 255u8, 255u8, 255u8]),
         0,
         0,
         scale,
         &font,
-        &format!("{}°", temp).to_string(),
+        &temp,
     );
-    img
+    let mut icon = Vec::new();
+    img.write_to(&mut icon, ImageOutputFormat::Ico)?;
+    Ok(icon)
 }

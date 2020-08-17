@@ -1,10 +1,10 @@
-use serde_json;
-use std::{collections::HashMap, error::Error};
+use std::{collections::HashMap, error::Error, env};
 
-//Lembrar de dar unwrap no retorno do outro lado
+// Fetching data from Open weather API
 fn make_request() -> Result<HashMap<String, serde_json::Value>, Box<dyn std::error::Error>> {
-    let location = "Duque+de+Caxias";
-    let app_id = "1ed014973f3aff63e2ec5bbb95751ef4";
+    let location = "Isbergues, FR";
+    // $env:OPENWEATHER_API_KEY="<paste key>"; cargo run
+    let app_id = env::var("OPENWEATHER_API_KEY")?;
     let url = format!(
         "http://api.openweathermap.org/data/2.5/weather?q={}&APPID={}&units=metric",
         location, app_id
@@ -15,7 +15,8 @@ fn make_request() -> Result<HashMap<String, serde_json::Value>, Box<dyn std::err
     Ok(resp)
 }
 
+// Transforming API result to i64 temperature (° Celsius)
 pub fn get_temp() -> Result<String, Box<dyn Error>> {
-    let cop_temp_str = &make_request()?["main"]["temp"].as_f64().unwrap_or(0.0);
-    Ok((*cop_temp_str as i64).to_string())
+    let temp = &make_request()?["main"]["temp"].as_f64().ok_or("Cannot convert temperature")?;
+    Ok((*temp as i64).to_string())
 }
