@@ -9,7 +9,7 @@ fn main() -> Result<(), systray::Error> {
         Err(_) => return Err(systray::Error::UnknownError),
     };
 
-    // At app init : we create systray icon (TODO : error handling)
+    // At app init : we create systray icon
     let error_icon = include_bytes!("../assets/error-5-16.ico");
     let icon = match image_creation::create_icon() {
         Ok(i) => i,
