@@ -2,8 +2,6 @@
 mod image_creation;
 mod request_maker;
 
-//use std::path;
-
 #[cfg(target_os = "windows")]
 fn main() -> Result<(), systray::Error> {
     let mut app;
@@ -30,7 +28,6 @@ fn main() -> Result<(), systray::Error> {
         Ok::<_, systray::Error>(())
     })?;
 
-    println!("Waiting on message!");
     app.wait_for_message()?;
     Ok(())
 }
