@@ -2,7 +2,7 @@ use std::{collections::HashMap, env, error::Error};
 
 // Fetching data from Open weather API
 fn make_request() -> Result<HashMap<String, serde_json::Value>, Box<dyn std::error::Error>> {
-    let location = "Duque de Caxias";
+    let location = env::var("OPENWEATHER_LOCATION").unwrap_or(String::from("Duque de Caxias"));
     // $env:OPENWEATHER_API_KEY="<paste key>"; cargo run
     let app_id = env::var("OPENWEATHER_API_KEY")?;
     let url = format!(
