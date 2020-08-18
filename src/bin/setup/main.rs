@@ -3,6 +3,7 @@
 mod open_browser;
 use fltk::{app::*, button::*, frame::*, input::*, window::*};
 use std::env;
+use std::process::Command;
 
 fn main() {
     construct_gui();
@@ -39,18 +40,35 @@ fn construct_gui() {
 fn set_key(key: String) {
     let app_id = key;
     println!("{}", app_id.clone());
-    env::set_var("OPENWEATHER_API_KEY", app_id.clone());
-    println!(
-        "{:?}",
-        assert_eq!(env::var("OPENWEATHER_API_KEY"), Ok(app_id))
-    );
+    let output = if cfg!(target_os = "windows") {
+        Command::new("cmd")
+            .args(&["/C", "setx", "WEATHER_CITY", &app_id.clone()])
+            .output()
+            .expect("failed to execute process")
+    } else {
+        Command::new("sh")
+            .arg("-c")
+            .arg("echo hello")
+            .output()
+            .expect("failed to execute process")
+    };
 }
 
 fn set_city(city: String) {
     let city_copy = city;
     println!("{}", city_copy.clone());
-    env::set_var("WEATHER_CITY", city_copy.clone());
-    println!("{:?}", assert_eq!(env::var("WEATHER_CITY"), Ok(city_copy)));
+    let output = if cfg!(target_os = "windows") {
+        Command::new("cmd")
+            .args(&["/C", "setx", "WEATHER_CITY", &city_copy.clone()])
+            .output()
+            .expect("failed to execute process")
+    } else {
+        Command::new("sh")
+            .arg("-c")
+            .arg("echo hello")
+            .output()
+            .expect("failed to execute process")
+    };
 }
 
 fn save_all(city_entry: &Input, key_entry: &Input, gui_window: &App) {
