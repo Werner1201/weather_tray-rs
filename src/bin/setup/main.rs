@@ -1,9 +1,14 @@
-#[path = "open_browser.rs"]
+#![windows_subsystem = "windows"]
+//#[path = "open_browser.rs"]
 mod open_browser;
 use fltk::{app::*, button::*, frame::*, input::*, window::*};
 use std::env;
 
-pub fn construct_gui() {
+fn main() {
+    construct_gui();
+}
+
+fn construct_gui() {
     let gui_window = App::default();
     let mut wind = Window::new(100, 100, 400, 300, "Hello from rust");
     let _get_key_label = Frame::new(150, 30, 100, 20, "To Obtain your key acess:");
