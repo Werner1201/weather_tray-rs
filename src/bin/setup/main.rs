@@ -42,7 +42,7 @@ fn set_key(key: String) {
     println!("{}", app_id.clone());
     let output = if cfg!(target_os = "windows") {
         Command::new("cmd")
-            .args(&["/C", "setx", "WEATHER_CITY", &app_id.clone()])
+            .args(&["/C", "setx", "OPENWEATHER_API_KEY", &app_id.clone()])
             .output()
             .expect("failed to execute process")
     } else {
@@ -59,7 +59,7 @@ fn set_city(city: String) {
     println!("{}", city_copy.clone());
     let output = if cfg!(target_os = "windows") {
         Command::new("cmd")
-            .args(&["/C", "setx", "WEATHER_CITY", &city_copy.clone()])
+            .args(&["/C", "setx", "OPENWEATHER_LOCATION", &city_copy.clone()])
             .output()
             .expect("failed to execute process")
     } else {
