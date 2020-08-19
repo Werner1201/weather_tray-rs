@@ -48,7 +48,7 @@ fn set_key(key: String) {
     } else {
         Command::new("sh")
             .arg("-c")
-            .arg("echo hello")
+            .args(&["EXPORT OPENWEATHER_API_KEY=", &app_id.clone(), "&>> ~/.bash_profile"])
             .output()
             .expect("failed to execute process")
     };
@@ -64,10 +64,10 @@ fn set_city(city: String) {
             .expect("failed to execute process")
     } else {
         Command::new("sh")
-            .arg("-c")
-            .arg("echo hello")
-            .output()
-            .expect("failed to execute process")
+        .arg("-c")
+        .args(&["EXPORT OPENWEATHER_LOCATION=", &city_copy.clone(), "&>> ~/.bash_profile"])
+        .output()
+        .expect("failed to execute process")
     };
 }
 
