@@ -1712,20 +1712,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "temp_tray-rs"
-version = "0.2.0"
-dependencies = [
- "fltk",
- "image",
- "imageproc",
- "reqwest",
- "rusttype",
- "serde_json",
- "systray",
- "webbrowser",
-]
-
-[[package]]
 name = "tempfile"
 version = "3.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2030,6 +2016,20 @@ name = "wasm-bindgen-shared"
 version = "0.2.67"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "93b162580e34310e5931c4b792560108b10fd14d64915d7fff8ff00180e70092"
+
+[[package]]
+name = "weather_tray-rs"
+version = "0.2.0"
+dependencies = [
+ "fltk",
+ "image",
+ "imageproc",
+ "reqwest",
+ "rusttype",
+ "serde_json",
+ "systray",
+ "webbrowser",
+]
 
 [[package]]
 name = "web-sys"
