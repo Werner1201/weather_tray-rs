@@ -11,7 +11,7 @@ fn main() {
 
 fn construct_gui() {
     let gui_window = App::default();
-    let mut wind = Window::new(100, 100, 400, 300, "Hello from rust");
+    let mut wind = Window::new(100, 100, 400, 300, "Temperature Systray Setup");
     let _get_key_label = Frame::new(150, 30, 100, 20, "To Obtain your key acess:");
     let mut link = Button::new(
         150,

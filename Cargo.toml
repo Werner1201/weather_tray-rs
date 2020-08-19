@@ -3,6 +3,11 @@ name = "temp_tray-rs"
 version = "0.2.0"
 authors = ["Werner1201 <werner.romling@unigranrio.br>", "Nicolas BAUW <nbauw@hotmail.com>"]
 edition = "2018"
+repository = "https://github.com/Werner1201/weather_tray-rs"
+keywords = ["open", "weather", "temperature", "systray"]
+description = "Systray application to see current temperature in selected location."
+readme = "README.md"
+default-run = "temp_tray-rs"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
