@@ -19,7 +19,7 @@ fn main() -> Result<(), systray::Error> {
         Ok(i) => i,
         Err(_) => error_icon.to_vec(),
     };
-    app.set_tooltip("Temperature (Celcius)")?;
+    app.set_tooltip(&env::var("OPENWEATHER_LOCATION").unwrap_or("Temperature (Celcius)".to_string()))?;
     app.set_icon_from_buffer(&icon[0..icon.len()], 256, 256)?;
 
     // City change
@@ -42,6 +42,7 @@ fn main() -> Result<(), systray::Error> {
             Err(_) => error_icon.to_vec(),
         };
         window.set_icon_from_buffer(&icon[0..icon.len()], 256, 256)?;
+        window.set_tooltip(&env::var("OPENWEATHER_LOCATION").unwrap_or("Temperature (Celcius)".to_string()))?;
         Ok::<_, systray::Error>(())
     })?;
 
