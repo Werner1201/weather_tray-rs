@@ -1,7 +1,11 @@
 #![windows_subsystem = "windows"]
-use fltk::{app::*, button::*, frame::*, input::*, window::*};
+use fltk::{app::*, button::*, input::*, window::*};
+use globalenv::set_var;
+use std::env;
+
 mod image_creation;
 mod request_maker;
+
 //1ed014973f3aff63e2ec5bbb95751ef4
 fn main() -> Result<(), systray::Error> {
     let mut app = match systray::Application::new() {
@@ -21,16 +25,23 @@ fn main() -> Result<(), systray::Error> {
     // City change
     app.add_menu_item("Change location", move |window| {
         let gui_window = App::default();
-        let mut wind = Window::new(100, 100, 400, 300, "Temperature Systray Setup");
+        let mut wind = Window::new(100, 100, 400, 300, "Please select location:");
         let city_input = Input::new(150, 130, 150, 20, "City Name:");
         let mut but = Button::new(100, 230, 200, 40, "Save");
         wind.end();
         wind.show();
         but.set_callback(Box::new(move || {
-            image_creation::create_icon(Some(city_input.value())).unwrap();
+            // Sets updated environment variable for global and process
+            set_var("OPENWEATHER_LOCATION", &city_input.value()).unwrap();
+            env::set_var("OPENWEATHER_LOCATION", &city_input.value());
+            gui_window.quit();
         }));
         gui_window.run().unwrap();
 
+        let icon = match image_creation::create_icon(env::var("OPENWEATHER_LOCATION").ok()) {
+            Ok(i) => i,
+            Err(_) => error_icon.to_vec(),
+        };
         window.set_icon_from_buffer(&icon[0..icon.len()], 256, 256)?;
         Ok::<_, systray::Error>(())
     })?;
