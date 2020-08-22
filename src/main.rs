@@ -25,9 +25,9 @@ fn main() -> Result<(), systray::Error> {
     // City change
     app.add_menu_item("Change location", move |window| {
         let gui_window = App::default();
-        let mut wind = Window::new(100, 100, 400, 300, "Please select location:");
-        let city_input = Input::new(150, 130, 150, 20, "City Name:");
-        let mut but = Button::new(100, 230, 200, 40, "Save");
+        let mut wind = Window::new(100, 100, 300, 80, "Please select location:");
+        let city_input = Input::new(100, 30, 150, 20, "City Name:");
+        let mut but = Button::new(250, 30, 30, 20, "OK");
         wind.end();
         wind.show();
         but.set_callback(Box::new(move || {
