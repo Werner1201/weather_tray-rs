@@ -1,6 +1,6 @@
 [package]
 name = "weather_tray-rs"
-version = "0.2.0"
+version = "0.3.0"
 authors = ["Werner1201 <werner.romling@unigranrio.br>", "Nicolas BAUW <nbauw@hotmail.com>"]
 edition = "2018"
 repository = "https://github.com/Werner1201/weather_tray-rs"
@@ -20,4 +20,4 @@ reqwest = { version = "0.10", features = ["blocking", "json"] }
 serde_json = "1.0"
 fltk = { version = "^0.8", features = ["fltk-bundled"] }
 webbrowser = {git= "https://github.com/amodm/webbrowser-rs", tag = "v0.5.5"}
-globalenv = "0.2"
+globalenv = "0.3"

@@ -33,7 +33,6 @@ fn main() -> Result<(), systray::Error> {
         but.set_callback(Box::new(move || {
             // Sets updated environment variable for global and process
             set_var("OPENWEATHER_LOCATION", &city_input.value()).unwrap();
-            env::set_var("OPENWEATHER_LOCATION", &city_input.value());
             gui_window.quit();
         }));
         gui_window.run().unwrap();
