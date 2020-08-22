@@ -15,7 +15,7 @@ fn main() -> Result<(), systray::Error> {
 
     // At app init : we create systray icon (generated from data fetched from API, or a pre-drawn error icon whatever the error)
     let error_icon = include_bytes!("../assets/error-5-16.ico");
-    let icon = match image_creation::create_icon(None) {
+    let icon = match image_creation::create_icon() {
         Ok(i) => i,
         Err(_) => error_icon.to_vec(),
     };
@@ -37,7 +37,7 @@ fn main() -> Result<(), systray::Error> {
         }));
         gui_window.run().unwrap();
 
-        let icon = match image_creation::create_icon(env::var("OPENWEATHER_LOCATION").ok()) {
+        let icon = match image_creation::create_icon() {
             Ok(i) => i,
             Err(_) => error_icon.to_vec(),
         };
@@ -48,7 +48,7 @@ fn main() -> Result<(), systray::Error> {
 
     // Refresh menu : we fetch api data and update systray icon (TODO : automatic update ?)
     app.add_menu_item("Refresh", move |window| {
-        let icon = match image_creation::create_icon(None) {
+        let icon = match image_creation::create_icon() {
             Ok(i) => i,
             Err(_) => error_icon.to_vec(),
         };

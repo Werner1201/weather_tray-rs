@@ -4,9 +4,9 @@ use rusttype::{Font, Scale};
 use std::error::Error;
 
 // Fetching data from API, returning the ready-to-display icon (or an error)
-pub fn create_icon(city: Option<String>) -> Result<Vec<u8>, Box<dyn Error>> {
+pub fn create_icon() -> Result<Vec<u8>, Box<dyn Error>> {
     let mut img = DynamicImage::new_rgb8(256, 256);
-    let temp = crate::request_maker::get_temp(city)?;
+    let temp = crate::request_maker::get_temp()?;
     let font = include_bytes!("../assets/DejaVuSans.ttf");
     let font = match Font::try_from_bytes(font) {
         Some(f) => f,
