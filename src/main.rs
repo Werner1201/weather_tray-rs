@@ -57,16 +57,16 @@ fn main() -> Result<(), systray::Error> {
 
 // Opens the location input window
 fn location_dialog() {
-    let gui_window = App::default();
-        let mut wind = Window::new(100, 100, 300, 80, "Please select location:");
+    let a = App::default();
+        let mut w = Window::new(100, 100, 300, 80, "Please select location:");
         let city_input = Input::new(100, 30, 150, 20, "City Name:");
-        let mut but = Button::new(250, 30, 30, 20, "OK");
-        wind.end();
-        wind.show();
-        but.set_callback(Box::new(move || {
-            // Sets updated environment variable for global and process
+        let mut b = Button::new(250, 30, 30, 20, "OK");
+        w.end();
+        w.show();
+        b.set_callback(Box::new(move || {
+            // Sets updated environment variable globally and for process
             set_var("OPENWEATHER_LOCATION", &city_input.value()).unwrap();
-            gui_window.quit();
+            a.quit();
         }));
-        gui_window.run().unwrap();
+        a.run().unwrap();
 }
