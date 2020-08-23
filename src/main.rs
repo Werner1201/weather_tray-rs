@@ -24,19 +24,7 @@ fn main() -> Result<(), systray::Error> {
 
     // City change
     app.add_menu_item("Change location", move |window| {
-        let gui_window = App::default();
-        let mut wind = Window::new(100, 100, 300, 80, "Please select location:");
-        let city_input = Input::new(100, 30, 150, 20, "City Name:");
-        let mut but = Button::new(250, 30, 30, 20, "OK");
-        wind.end();
-        wind.show();
-        but.set_callback(Box::new(move || {
-            // Sets updated environment variable for global and process
-            set_var("OPENWEATHER_LOCATION", &city_input.value()).unwrap();
-            gui_window.quit();
-        }));
-        gui_window.run().unwrap();
-
+        location_dialog();
         let icon = match image_creation::create_icon() {
             Ok(i) => i,
             Err(_) => error_icon.to_vec(),
@@ -65,4 +53,20 @@ fn main() -> Result<(), systray::Error> {
 
     app.wait_for_message()?;
     Ok(())
+}
+
+// Opens the location input window
+fn location_dialog() {
+    let gui_window = App::default();
+        let mut wind = Window::new(100, 100, 300, 80, "Please select location:");
+        let city_input = Input::new(100, 30, 150, 20, "City Name:");
+        let mut but = Button::new(250, 30, 30, 20, "OK");
+        wind.end();
+        wind.show();
+        but.set_callback(Box::new(move || {
+            // Sets updated environment variable for global and process
+            set_var("OPENWEATHER_LOCATION", &city_input.value()).unwrap();
+            gui_window.quit();
+        }));
+        gui_window.run().unwrap();
 }
