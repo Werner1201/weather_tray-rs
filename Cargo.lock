@@ -648,9 +648,9 @@ checksum = "9b919933a397b79c37e33b77bb2aa3dc8eb6e165ad809e58ff75bc7db2e34574"
 
 [[package]]
 name = "globalenv"
-version = "0.2.0"
+version = "0.3.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "fe5bb9d06d9b5683993fd00f56f905587e71f35fc6dfcc81c9a42a75e15a1bf8"
+checksum = "01309b7fb2a3cf992c328717bf8f04cc7cbf9d5a1d851e2a9a5f2b9eee1251f5"
 dependencies = [
  "winreg",
 ]
@@ -2028,7 +2028,7 @@ checksum = "93b162580e34310e5931c4b792560108b10fd14d64915d7fff8ff00180e70092"
 
 [[package]]
 name = "weather_tray-rs"
-version = "0.2.0"
+version = "0.3.0"
 dependencies = [
  "fltk",
  "globalenv",
