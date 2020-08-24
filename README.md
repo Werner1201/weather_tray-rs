@@ -1,4 +1,4 @@
-Weather_tray-rs
+![Weather_tray_icon](Weather_tray2.png) Weather_tray-rs
 ================
 
 It is what the very descriptive name says, A system tray which shows the weather temperature of the selected place using the [Open Weather API](https://openweathermap.org/).
