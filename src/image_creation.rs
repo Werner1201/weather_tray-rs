@@ -7,7 +7,7 @@ use winreg::RegKey;
 
 // Fetching data from API, returning the ready-to-display icon (or an error)
 pub fn create_icon() -> Result<Vec<u8>, Box<dyn Error>> {
-    let t = light_theme();
+    let t = light_theme_query();
     let mut img = match t {
         Ok(1) => DynamicImage::new_rgba8(256, 256),
         _ => DynamicImage::new_rgb8(256, 256)
@@ -51,7 +51,7 @@ pub fn create_icon() -> Result<Vec<u8>, Box<dyn Error>> {
     Ok(icon)
 }
 
-fn light_theme() -> Result<u32, Box<dyn Error>> {
+fn light_theme_query() -> Result<u32, Box<dyn Error>> {
     let hkcu = RegKey::predef(HKEY_CURRENT_USER);
     let ie_settings = hkcu
         .open_subkey_with_flags(
