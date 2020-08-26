@@ -7,7 +7,9 @@ fn make_request() -> Result<HashMap<String, serde_json::Value>, Box<dyn std::err
     let app_id = env::var("OPENWEATHER_API_KEY")?;
     let url = format!(
         "http://api.openweathermap.org/data/2.5/weather?q={}&APPID={}&units={}",
-        location, app_id, env::var("OPENWEATHER_UNIT").unwrap()
+        location,
+        app_id,
+        env::var("OPENWEATHER_UNIT").unwrap()
     );
     let resp = reqwest::blocking::get(&url)?.json::<HashMap<String, serde_json::Value>>()?;
     println!("{:#?}", resp["main"]["temp"]);
