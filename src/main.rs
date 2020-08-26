@@ -8,7 +8,9 @@ mod request_maker;
 
 //1ed014973f3aff63e2ec5bbb95751ef4
 fn main() -> Result<(), systray::Error> {
-    let mut base = 0;
+    // Setting a temporary (and local to process) environment variable to store temperature unit user's choice
+    env::set_var("OPENWEATHER_UNIT", "metric");
+
     let mut app = match systray::Application::new() {
         Ok(w) => w,
         Err(_) => return Err(systray::Error::UnknownError),
@@ -16,52 +18,68 @@ fn main() -> Result<(), systray::Error> {
 
     // At app init : we create systray icon (generated from data fetched from API, or a pre-drawn error icon whatever the error)
     let error_icon = include_bytes!("../assets/error-5-16.ico");
-    let icon = match image_creation::create_icon(base) {
+    let icon = match image_creation::create_icon() {
         Ok(i) => i,
         Err(_) => error_icon.to_vec(),
     };
-    app.set_tooltip(
-        &env::var("OPENWEATHER_LOCATION").unwrap_or("Temperature (Celcius)".to_string()),
-    )?;
+    app.set_tooltip(&format!(
+        "{} ({})",
+        env::var("OPENWEATHER_LOCATION").unwrap(),
+        if env::var("OPENWEATHER_UNIT") == Ok(String::from("metric")) {
+            String::from("Celcius")
+        } else {
+            String::from("Fahrenheit")
+        }
+    ))?;
     app.set_icon_from_buffer(&icon[0..icon.len()], 256, 256)?;
 
     // City change
     app.add_menu_item("Change location", move |window| {
         location_dialog();
-        let icon = match image_creation::create_icon(base) {
+        let icon = match image_creation::create_icon() {
             Ok(i) => i,
             Err(_) => error_icon.to_vec(),
         };
         window.set_icon_from_buffer(&icon[0..icon.len()], 256, 256)?;
-        window.set_tooltip(
-            &env::var("OPENWEATHER_LOCATION").unwrap_or("Temperature (Celcius)".to_string()),
-        )?;
+        window.set_tooltip(&format!(
+            "{} ({})",
+            env::var("OPENWEATHER_LOCATION").unwrap(),
+            if env::var("OPENWEATHER_UNIT") == Ok(String::from("metric")) {
+                String::from("Celcius")
+            } else {
+                String::from("Fahrenheit")
+            }
+        ))?;
         Ok::<_, systray::Error>(())
     })?;
 
-    app.add_menu_item("Change to Fahrenheit", move |window| {
-        base = 1;
-        let icon = match image_creation::create_icon(base) {
+    app.add_menu_item("Change unit", move |window| {
+        if env::var("OPENWEATHER_UNIT").unwrap() == "metric" {
+            env::set_var("OPENWEATHER_UNIT", "imperial");
+        } else {
+            env::set_var("OPENWEATHER_UNIT", "metric");
+        }
+        let icon = match image_creation::create_icon() {
             Ok(i) => i,
             Err(_) => error_icon.to_vec(),
         };
         window.set_icon_from_buffer(&icon[0..icon.len()], 256, 256)?;
+        window.set_tooltip(&format!(
+            "{} ({})",
+            env::var("OPENWEATHER_LOCATION").unwrap(),
+            if env::var("OPENWEATHER_UNIT") == Ok(String::from("metric")) {
+                String::from("Celcius")
+            } else {
+                String::from("Fahrenheit")
+            }
+        ))?;
         Ok::<_, systray::Error>(())
     })?;
 
-    app.add_menu_item("Change to Celsius", move |window| {
-        base = 0;
-        let icon = match image_creation::create_icon(base) {
-            Ok(i) => i,
-            Err(_) => error_icon.to_vec(),
-        };
-        window.set_icon_from_buffer(&icon[0..icon.len()], 256, 256)?;
-        Ok::<_, systray::Error>(())
-    })?;
     // Refresh menu : we fetch api data and update systray icon (TODO : automatic update ?)
     //We can't do autoupdates since the API has a limit of requests per day
     app.add_menu_item("Refresh", move |window| {
-        let icon = match image_creation::create_icon(base) {
+        let icon = match image_creation::create_icon() {
             Ok(i) => i,
             Err(_) => error_icon.to_vec(),
         };
