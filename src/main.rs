@@ -10,7 +10,7 @@ mod request_maker;
 fn main() -> Result<(), systray::Error> {
     // Setting a temporary (and local to process) environment variable to store temperature unit user's choice
     env::set_var("OPENWEATHER_UNIT", "metric");
-    
+
     let mut app = match systray::Application::new() {
         Ok(w) => w,
         Err(_) => return Err(systray::Error::UnknownError),
@@ -22,9 +22,15 @@ fn main() -> Result<(), systray::Error> {
         Ok(i) => i,
         Err(_) => error_icon.to_vec(),
     };
-    app.set_tooltip(
-        &env::var("OPENWEATHER_LOCATION").unwrap().to_string(),
-    )?;
+    app.set_tooltip(&format!(
+        "{} ({})",
+        env::var("OPENWEATHER_LOCATION").unwrap(),
+        if env::var("OPENWEATHER_UNIT") == Ok(String::from("metric")) {
+            String::from("Celcius")
+        } else {
+            String::from("Fahrenheit")
+        }
+    ))?;
     app.set_icon_from_buffer(&icon[0..icon.len()], 256, 256)?;
 
     // City change
@@ -35,20 +41,38 @@ fn main() -> Result<(), systray::Error> {
             Err(_) => error_icon.to_vec(),
         };
         window.set_icon_from_buffer(&icon[0..icon.len()], 256, 256)?;
-        window.set_tooltip(
-            &env::var("OPENWEATHER_LOCATION").unwrap().to_string(),
-        )?;
+        window.set_tooltip(&format!(
+            "{} ({})",
+            env::var("OPENWEATHER_LOCATION").unwrap(),
+            if env::var("OPENWEATHER_UNIT") == Ok(String::from("metric")) {
+                String::from("Celcius")
+            } else {
+                String::from("Fahrenheit")
+            }
+        ))?;
         Ok::<_, systray::Error>(())
     })?;
 
     app.add_menu_item("Change unit", move |window| {
-        if env::var("OPENWEATHER_UNIT").unwrap() == "metric" { env::set_var("OPENWEATHER_UNIT", "imperial"); }
-        else { env::set_var("OPENWEATHER_UNIT", "metric"); }
+        if env::var("OPENWEATHER_UNIT").unwrap() == "metric" {
+            env::set_var("OPENWEATHER_UNIT", "imperial");
+        } else {
+            env::set_var("OPENWEATHER_UNIT", "metric");
+        }
         let icon = match image_creation::create_icon() {
             Ok(i) => i,
             Err(_) => error_icon.to_vec(),
         };
         window.set_icon_from_buffer(&icon[0..icon.len()], 256, 256)?;
+        window.set_tooltip(&format!(
+            "{} ({})",
+            env::var("OPENWEATHER_LOCATION").unwrap(),
+            if env::var("OPENWEATHER_UNIT") == Ok(String::from("metric")) {
+                String::from("Celcius")
+            } else {
+                String::from("Fahrenheit")
+            }
+        ))?;
         Ok::<_, systray::Error>(())
     })?;
 
