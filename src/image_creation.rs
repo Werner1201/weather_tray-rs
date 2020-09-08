@@ -10,14 +10,14 @@ pub fn create_icon() -> Result<Vec<u8>, Box<dyn Error>> {
     let t = light_theme_query();
     let mut img = match t {
         Ok(1) => DynamicImage::new_rgba8(256, 256),
-        _ => DynamicImage::new_rgb8(256, 256)
+        _ => DynamicImage::new_rgb8(256, 256),
     };
     let temp = crate::request_maker::get_temp()?;
 
     let font = include_bytes!("../assets/DejaVuSans.ttf");
     let font = match Font::try_from_bytes(font) {
         Some(f) => f,
-        None => return Err(Box::new(systray::Error::UnknownError)), 
+        None => return Err(Box::new(systray::Error::UnknownError)),
     };
 
     // Text scale
@@ -37,15 +37,16 @@ pub fn create_icon() -> Result<Vec<u8>, Box<dyn Error>> {
             &temp,
         );
     } else {
-    draw_text_mut(
-        &mut img,
-        Rgba([255u8, 255u8, 255u8, 255u8]),
-        0,
-        0,
-        scale,
-        &font,
-        &temp,
-    )};
+        draw_text_mut(
+            &mut img,
+            Rgba([255u8, 255u8, 255u8, 255u8]),
+            0,
+            0,
+            scale,
+            &font,
+            &temp,
+        )
+    };
     let mut icon = Vec::new();
     img.write_to(&mut icon, ImageOutputFormat::Ico)?;
     Ok(icon)
@@ -53,11 +54,10 @@ pub fn create_icon() -> Result<Vec<u8>, Box<dyn Error>> {
 
 fn light_theme_query() -> Result<u32, Box<dyn Error>> {
     let hkcu = RegKey::predef(HKEY_CURRENT_USER);
-    let ie_settings = hkcu
-        .open_subkey_with_flags(
-            "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize",
-            KEY_READ,
-        )?;
+    let ie_settings = hkcu.open_subkey_with_flags(
+        "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize",
+        KEY_READ,
+    )?;
     let light_theme: u32 = ie_settings.get_value("SystemUsesLightTheme")?;
     Ok(light_theme)
 }
