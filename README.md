@@ -3,6 +3,8 @@
 
 It is what the very descriptive name says, A system tray which shows the weather temperature of the selected place using the [Open Weather API](https://openweathermap.org/).
 
+It is as of right now being fed by an Microsoft Azure Maps API where we get the Weather Info. If you are conserned for your privacy I recomment creating a free acount there and setting up a Azure Maps for you so you can set your own key. 
+
 ## How to build it yourself and customize it
 
 If you find this program useful to you and in this early development stage you want to compile your own version here's a list of needs:
@@ -18,3 +20,4 @@ And now you can open the project on the code editor, IDE of your choice and star
 * Another thing I want to do is to make easy to change the city and the API key so everybody has it's own key. (done for the API key, now read from ENV)
 * Figure out how to make this whole program assynchronous or a way to create a delay to make another request to the API.
 * Add a GUI to set the Environment Variables of the Key and City when It's the first time executing in System. I'm planing to to this simple gui in the [FLTK-rs library](https://github.com/MoAlyousef/fltk-rs)
+

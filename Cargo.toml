@@ -1,6 +1,6 @@
 [package]
 name = "weather_tray-rs"
-version = "0.3.0"
+version = "0.4.0"
 authors = ["Werner1201 <werner.romling@unigranrio.br>", "Nicolas BAUW <nbauw@hotmail.com>"]
 edition = "2018"
 repository = "https://github.com/Werner1201/weather_tray-rs"
