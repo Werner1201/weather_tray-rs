@@ -1,7 +1,6 @@
 #![windows_subsystem = "windows"]
 //#[path = "open_browser.rs"]
-mod open_browser;
-use fltk::{app::*, button::*, frame::*, input::*, window::*};
+use fltk::{app::*, button::*, input::*, window::*};
 use globalenv::set_var;
 
 fn main() {
