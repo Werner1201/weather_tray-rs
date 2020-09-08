@@ -4,10 +4,11 @@ use std::{env, error::Error};
 
 // Fetching data from Open weather API
 fn make_request() -> Result<Value, Box<dyn std::error::Error>> {
+    let _ = get_geocode();
     let location = env::var("OPENWEATHER_LATLONG").unwrap();
     // $env:OPENWEATHER_API_KEY="<paste key>"; cargo run
     let app_id = env::var("OPENWEATHER_API_KEY")?;
-    let _ = get_geocode();
+
     let url = format!(
         "https://atlas.microsoft.com/weather/currentConditions/json?subscription-key={}&api-version=1.0&query={}&unit={}",
         app_id,
@@ -34,7 +35,7 @@ fn get_geocode() -> Result<(), Box<dyn std::error::Error>> {
     let url = format!(
         "https://atlas.microsoft.com/search/address/json?subscription-key={}&api-version=1.0&query={}",
         app_id.to_owned(),
-        location.to_owned(), 
+        location.to_owned()
         //env::var("OPENWEATHER_UNIT").unwrap()
     );
     let resp: Value = reqwest::blocking::get(&url)?.json()?;
@@ -45,7 +46,8 @@ fn get_geocode() -> Result<(), Box<dyn std::error::Error>> {
             resp["results"][0]["position"]["lat"].as_f64().unwrap(),
             resp["results"][0]["position"]["lon"].as_f64().unwrap()
         ),
-    ).unwrap();
+    )
+    .unwrap();
 
     Ok(())
 }
