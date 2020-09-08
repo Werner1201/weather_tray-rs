@@ -20,4 +20,4 @@ And now you can open the project on the code editor, IDE of your choice and star
 * Another thing I want to do is to make easy to change the city and the API key so everybody has it's own key. (done for the API key, now read from ENV)
 * Figure out how to make this whole program assynchronous or a way to create a delay to make another request to the API.
 * Add a GUI to set the Environment Variables of the Key and City when It's the first time executing in System. I'm planing to to this simple gui in the [FLTK-rs library](https://github.com/MoAlyousef/fltk-rs)
-
+*Make the Installation be only one file and setup up the location of the install and the startup execution.
