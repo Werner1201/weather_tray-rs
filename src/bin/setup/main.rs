@@ -22,7 +22,11 @@ fn construct_gui() {
 }
 
 fn save_all(city_entry: &Input, gui_window: &App) {
-    set_var("OPENWEATHER_API_KEY", &key_entry.value()).unwrap();
+    set_var(
+        "OPENWEATHER_API_KEY",
+        "u0igzmogibXThHKcNUeFi5u_qFoSOB9mDRAbMZz1OAU",
+    )
+    .unwrap();
     set_var("OPENWEATHER_LOCATION", &city_entry.value()).unwrap();
     gui_window.quit();
 }
