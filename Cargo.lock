@@ -2037,7 +2037,6 @@ dependencies = [
  "rusttype",
  "serde_json",
  "systray",
- "webbrowser",
  "winreg",
 ]
 
@@ -2052,16 +2051,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "webbrowser"
-version = "0.5.5"
-source = "git+https://github.com/amodm/webbrowser-rs?tag=v0.5.5#a904f86f9c85ed692da6c15e65a8cd0f871daac3"
-dependencies = [
- "web-sys",
- "widestring",
- "winapi 0.3.9",
-]
-
-[[package]]
 name = "which"
 version = "3.1.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2069,12 +2058,6 @@ checksum = "d011071ae14a2f6671d0b74080ae0cd8ebf3a6f8c9589a2cd45f23126fe29724"
 dependencies = [
  "libc",
 ]
-
-[[package]]
-name = "widestring"
-version = "0.4.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a763e303c0e0f23b0da40888724762e802a8ffefbc22de4127ef42493c2ea68c"
 
 [[package]]
 name = "winapi"
